@@ -1,0 +1,31 @@
+﻿@using DemoApplication.Areas.Client.ViewModels.Account
+@model UpdateUserDataViewModel
+<div class="col-lg-9 col-12 mt--30 mt-lg--0">
+    <div class="myaccount-content">
+        <h3>UpdateUserData</h3>
+        <div class="account-details-form">
+            <form method="POST" asp-route="client-account-UpdateUserData">
+                <div class="row">
+                    <div class="col-12  mb--30">
+                        <label asp-for="CurrentPassword">CurrentPassword</label>
+                        <input asp-for="CurrentPassword" class="mb-0 form-control" placeholder="Enter your CurrentPassword">
+                        <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6 col-12  mb--30">
+                        <label asp-for="Name">Name</label>
+                        <input asp-for="Name" class="mb-0 form-control" placeholder="Enter your Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-12  mb--30">
+                        <label asp-for="LastName">LastName</label>
+                        <input asp-for="LastName" class="mb-0 form-control" placeholder="Enter your LastName">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn--primary">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

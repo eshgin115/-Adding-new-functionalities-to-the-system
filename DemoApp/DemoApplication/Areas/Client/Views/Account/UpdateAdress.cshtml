@@ -1,0 +1,41 @@
+﻿@using DemoApplication.Areas.Client.ViewModels.Account
+@model UpdateAdressViewModel
+<div class="col-lg-9 col-12 mt--30 mt-lg--0">
+    <div class="myaccount-content">
+        <h3>UpdateUserData</h3>
+        <div class="account-details-form">
+            <form method="POST" asp-route="client-account-UpdateAdress">
+                <div class="row">
+                    <div class="col-12  mb--30">
+                        <label asp-for="Adress">Adress</label>
+                        <input asp-for="Adress" class="mb-0 form-control" placeholder="Enter your Adress">
+                        <span asp-validation-for="Adress" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6 col-12  mb--30">
+                        <label asp-for="ReceiverName">ReceiverName</label>
+                        <input asp-for="ReceiverName" class="mb-0 form-control" placeholder="Enter your ReceiverName">
+                        <span asp-validation-for="ReceiverName" class="text-danger"></span>
+                    </div>
+                    <div class="col-12  mb--30">
+                        <label asp-for="ReceiverLastNameTake">ReceiverLastNameTake</label>
+                        <input asp-for="ReceiverLastNameTake" class="mb-0 form-control" placeholder="Enter your ReceiverLastNameTake">
+                        <span asp-validation-for="ReceiverLastNameTake" class="text-danger"></span>
+                    </div>
+                    <div class="col-12  mb--30">
+                        <label asp-for="ContactNumber">ContactNumber</label>
+                        <input asp-for="ContactNumber" class="mb-0 form-control" placeholder="Enter your ContactNumber">
+                        <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                    </div>
+                     <div class="col-12  mb--30">
+                        <label asp-for="CurrentPassword">CurrentPassword</label>
+                        <input asp-for="CurrentPassword" class="mb-0 form-control" placeholder="Enter your CurrentPassword">
+                        <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn--primary">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

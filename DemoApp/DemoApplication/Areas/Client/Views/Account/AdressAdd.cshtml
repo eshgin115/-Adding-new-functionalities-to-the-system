@@ -1,0 +1,40 @@
+﻿@using DemoApplication.Areas.Client.ViewModels.Account
+@model AdressAddViewModel
+<div class="col-lg-9 col-12 mt--30 mt-lg--0">
+    <div class="myaccount-content">
+        <h3>Password Details</h3>
+        <div class="account-details-form">
+            <form method="POST" asp-route="client-account-AdressAdd">
+                <div class="row">
+
+                    <div class="col-12  mb--30">
+                        <h4>Add Adress</h4>
+                    </div>
+                    <div class="col-12  mb--30">
+                      <label asp-for="Name">AdressName</label>
+                                <input asp-for="Name" class="mb-0 form-control"  placeholder="Enter your AdressName">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6 col-12  mb--30">
+                    <label asp-for="Receiver">ReceiverName</label>
+                                <input asp-for="Receiver" class="mb-0 form-control"  placeholder="Enter your ReceiverName">
+                                <span asp-validation-for="Receiver" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6 col-12  mb--30">
+                        <label asp-for="ReceiverLastNameTake">ReceiverLastName</label>
+                                <input asp-for="ReceiverLastNameTake" class="mb-0 form-control"  placeholder="Enter your ReceiverLastName">
+                                <span asp-validation-for="ReceiverLastNameTake" class="text-danger"></span>
+                    </div>
+                     <div class="col-lg-6 col-12  mb--30">
+                        <label asp-for="ContactNumber">ContactNumber</label>
+                                <input asp-for="ContactNumber" class="mb-0 form-control"  placeholder="Enter your ContactNumber">
+                                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn--primary">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

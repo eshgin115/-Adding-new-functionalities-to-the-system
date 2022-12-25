@@ -1,0 +1,38 @@
+﻿@using DemoApplication.Areas.Client.ViewModels.Account
+@model AdressViewModel
+@*<div class="col-lg-9 col-12 mt--30 mt-lg--0">
+    <div class="myaccount-content">
+        <div class="tab-pane fade" id="address-edit" role="tabpanel">
+            <div class="myaccount-content">
+                <h3>Billing Address</h3>
+                <address>
+                    <p><strong>$"{@Model.ReceiverName} {@Model.ReceiverLastNameTake}"</strong></p>
+                    <p>
+                        @Model.Adress
+                    </p>
+                    <p>Mobile: @Model.ContactNumber</p>
+                </address>
+                <a href="#" class="btn btn--primary">
+                    <i class="fa fa-edit"></i>Edit
+                    Address
+                </a>
+            </div>
+        </div>
+    </div>
+</div>*@
+<div class="col-lg-9 col-12 mt--30 mt-lg--0">
+    <div class="myaccount-content">
+        <h3>Billing Address</h3>
+        <address>
+            <p><strong>@Model.ReceiverName @Model.ReceiverLastNameTake</strong></p>
+            <p>
+                @Model.Adress
+            </p>
+            <p>Mobile: @Model.ContactNumber</p>
+        </address>
+        <a asp-route="client-account-UpdateAdress" class="btn btn--primary">
+            <i class="fa fa-edit"></i>Edit
+            Address
+        </a>
+    </div>
+</div>
