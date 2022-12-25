@@ -23,6 +23,7 @@ namespace DemoApplication.Database
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketProduct> BasketProducts { get; set; }
         public DbSet<UserAdress> UserAdresses { get; set; }
+        public DbSet<SiteColor> SiteColors { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
