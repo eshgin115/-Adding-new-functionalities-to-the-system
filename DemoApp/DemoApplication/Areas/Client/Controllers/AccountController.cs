@@ -15,11 +15,13 @@ namespace DemoApplication.Areas.Client.Controllers
     {
         private readonly DataContext _dataContext;
         private readonly IUserService _userService;
-
+        private User _CurrentUser;
+        
         public AccountController(DataContext dataContext, IUserService userService)
         {
             _dataContext = dataContext;
             _userService = userService;
+            _CurrentUser=userService.CurrentUser;
         }
         #region Dashboard
         [HttpGet("dashboard", Name = "client-account-dashboard")]
@@ -64,14 +66,14 @@ namespace DemoApplication.Areas.Client.Controllers
             {
                 return View(model);
             }
-            if (!BCrypt.Net.BCrypt.Verify(model.CurrentPassword, _userService.CurrentUser.Password))
+            if (!BCrypt.Net.BCrypt.Verify(model.CurrentPassword, _CurrentUser.Password))
             {
                 ModelState.AddModelError("CurrentPassword", "CurrentPassword is not correct");
                 return View(model);
             }
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
-            _userService.CurrentUser.Password = passwordHash;
+            _CurrentUser.Password = passwordHash;
 
             await _dataContext.SaveChangesAsync();
 
@@ -99,15 +101,15 @@ namespace DemoApplication.Areas.Client.Controllers
             {
                 return View(model);
             }
-            if (!BCrypt.Net.BCrypt.Verify(model.CurrentPassword, _userService.CurrentUser.Password))
+            if (!BCrypt.Net.BCrypt.Verify(model.CurrentPassword, _CurrentUser.Password))
             {
                 ModelState.AddModelError("CurrentPassword", "CurrentPassword is not correct");
                 return View(model);
             }
 
 
-            _userService.CurrentUser.FirstName = model.Name;
-            _userService.CurrentUser.LastName = model.LastName;
+            _CurrentUser.FirstName = model.Name;
+            _CurrentUser.LastName = model.LastName;
 
             await _dataContext.SaveChangesAsync();
 
@@ -130,11 +132,10 @@ namespace DemoApplication.Areas.Client.Controllers
         [ServiceFilter(typeof(IsUserAdress))]
         public IActionResult Adress()
         {
-            var CurrentUser = _userService.CurrentUser;
-           
+
 
             AdressViewModel AdressView = new AdressViewModel
-                (CurrentUser.Adress!.Name, CurrentUser.Adress.Receiver, CurrentUser.Adress.ReceiverLastNameTake, CurrentUser.Adress.ContactNumber);
+                (_CurrentUser.Adress!.Name, _CurrentUser.Adress.Receiver, _CurrentUser.Adress.ReceiverLastNameTake, _CurrentUser.Adress.ContactNumber);
 
 
             return View(AdressView);
@@ -153,22 +154,22 @@ namespace DemoApplication.Areas.Client.Controllers
             }
 
 
-            if (!BCrypt.Net.BCrypt.Verify(model.CurrentPassword, _userService.CurrentUser.Password))
+            if (!BCrypt.Net.BCrypt.Verify(model.CurrentPassword, _CurrentUser.Password))
             {
                 ModelState.AddModelError("CurrentPassword", "CurrentPassword is not correct");
                 return View(model);
             }
 
 
-            _userService.CurrentUser.Adress!.Name = model.Adress;
-            _userService.CurrentUser.Adress.ContactNumber = model.ContactNumber;
-            _userService.CurrentUser.Adress.ReceiverLastNameTake = model.ReceiverLastNameTake;
-            _userService.CurrentUser.Adress.Receiver = model.ReceiverName;
+            _CurrentUser.Adress!.Name = model.Adress;
+            _CurrentUser.Adress.ContactNumber = model.ContactNumber;
+            _CurrentUser.Adress.ReceiverLastNameTake = model.ReceiverLastNameTake;
+            _CurrentUser.Adress.Receiver = model.ReceiverName;
 
             await _dataContext.SaveChangesAsync();
 
 
-          return RedirectToRoute("client-account-UpdateAdress")
+            return RedirectToRoute("client-account-UpdateAdress");
         }
         #endregion
 
@@ -193,8 +194,8 @@ namespace DemoApplication.Areas.Client.Controllers
 
             await _dataContext.UserAdresses.AddAsync(new UserAdress
             { 
-                UserId=_userService.CurrentUser.Id,
-                User=_userService.CurrentUser,
+                UserId= _CurrentUser.Id,
+                User= _CurrentUser,
                 Name = model.Name,
                 Receiver = model.Receiver,
                 ReceiverLastNameTake = model.ReceiverLastNameTake,
