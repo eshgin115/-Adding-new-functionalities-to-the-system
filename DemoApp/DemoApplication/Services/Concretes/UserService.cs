@@ -44,7 +44,7 @@ namespace DemoApplication.Services.Abstracts
                 if (idClaim is null)
                     throw new IdentityCookieException("Identity cookie not found");
 
-                _currentUser = _dataContext.Users.Include(u=>u.Adress).First(u => u.Id == Guid.Parse(idClaim.Value));
+                _currentUser = _dataContext.Users.Include(u => u.Adress).First(u => u.Id == Guid.Parse(idClaim.Value));
 
                 return _currentUser;
             }
@@ -59,6 +59,14 @@ namespace DemoApplication.Services.Abstracts
         public async Task<bool> CheckPasswordAsync(string? email, string? password)
         {
             var user = await _dataContext.Users.SingleOrDefaultAsync(u => u.Email == email);
+
+
+
+
+            if (user is null)   return false;
+
+
+
             return BCrypt.Net.BCrypt.Verify(password, user!.Password);
 
         }
