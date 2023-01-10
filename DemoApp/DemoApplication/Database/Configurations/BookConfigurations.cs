@@ -13,6 +13,7 @@ namespace DemoApplication.Database.Configurations
                .HasOne(b => b.Author)
                .WithMany(a => a.Books)
                .HasForeignKey(b => b.AuthorId);
+           
         }
     }
 }

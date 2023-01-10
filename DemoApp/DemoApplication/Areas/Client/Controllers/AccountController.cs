@@ -134,8 +134,8 @@ namespace DemoApplication.Areas.Client.Controllers
         {
 
 
-            AdressViewModel AdressView = new AdressViewModel
-                (_CurrentUser.Adress!.Name, _CurrentUser.Adress.Receiver, _CurrentUser.Adress.ReceiverLastNameTake, _CurrentUser.Adress.ContactNumber);
+          AdressViewModel AdressView = new AdressViewModel
+           (_CurrentUser.Adress!.Name, _CurrentUser.Adress.Receiver, _CurrentUser.Adress.ReceiverLastNameTake, _CurrentUser.Adress.ContactNumber);
 
 
             return View(AdressView);

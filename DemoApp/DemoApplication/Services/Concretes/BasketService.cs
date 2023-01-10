@@ -74,7 +74,7 @@ namespace DemoApplication.Services.Abstracts
             //Add product to cookie if user is not authenticated 
             List<ProductCookieViewModel> AddToCookie()
             {
-                var productCookieValue = _httpContextAccessor.HttpContext.Request.Cookies["products"];
+                var productCookieValue = _httpContextAccessor.HttpContext!.Request.Cookies["products"];
                 var productsCookieViewModel = productCookieValue is not null
                     ? JsonSerializer.Deserialize<List<ProductCookieViewModel>>(productCookieValue)
                     : new List<ProductCookieViewModel> { };
@@ -93,7 +93,7 @@ namespace DemoApplication.Services.Abstracts
 
                 _httpContextAccessor.HttpContext.Response.Cookies.Append("products", JsonSerializer.Serialize(productsCookieViewModel));
 
-                return productsCookieViewModel;
+                return productsCookieViewModel!;
             }
         }
     }

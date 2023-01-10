@@ -41,6 +41,7 @@ namespace DemoApplication.Services.Abstracts
                 }
 
                 var idClaim = _httpContextAccessor.HttpContext!.User.Claims.FirstOrDefault(C => C.Type == CustomClaimNames.ID);
+
                 if (idClaim is null)
                     throw new IdentityCookieException("Identity cookie not found");
 

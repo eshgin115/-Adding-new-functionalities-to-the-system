@@ -16,6 +16,18 @@ namespace DemoApplication.Areas.Admin.ViewModels.Book.Add
         [Required]
         public int AuthorId { get; set; }
 
+        [Required]
+        public List<IFormFile>? Images { get; set; }
+
+        public List<string>? ImageUrls { get; set; }
+        [Required]
+        public IFormFile? MainImage { get; set; }
+
+        public string? MainImageUrl { get; set; }
+        [Required]
+        public IFormFile? HoverImage { get; set; }
+
+        public string? HoverImageUrl { get; set; }
 
         public List<AuthorListItemViewModel>? Authors { get; set; }
         public List<CategoryListItemViewModel>? Categories { get; set; }

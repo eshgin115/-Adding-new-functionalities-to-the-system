@@ -24,6 +24,7 @@ namespace DemoApplication.Database
         public DbSet<BasketProduct> BasketProducts { get; set; }
         public DbSet<UserAdress> UserAdresses { get; set; }
         public DbSet<SiteColor> SiteColors { get; set; }
+        public DbSet<Image> Images { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

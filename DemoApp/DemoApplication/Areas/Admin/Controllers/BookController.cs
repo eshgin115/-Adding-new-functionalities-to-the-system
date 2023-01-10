@@ -1,7 +1,9 @@
 ﻿using DemoApplication.Areas.Admin.ViewModels.Book;
 using DemoApplication.Areas.Admin.ViewModels.Book.Add;
+using DemoApplication.Contracts.File;
 using DemoApplication.Database;
 using DemoApplication.Database.Models;
+using DemoApplication.Services.Abstracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,11 +18,13 @@ namespace DemoApplication.Areas.Admin.Controllers
     {
         private readonly DataContext _dataContext;
         private readonly ILogger<BookController> _logger;
+        private readonly IFileService _fileService;
 
-        public BookController(DataContext dataContext, ILogger<BookController> logger)
+        public BookController(DataContext dataContext, ILogger<BookController> logger,IFileService fileService)
         {
             _dataContext = dataContext;
             _logger = logger;
+            _fileService = fileService;
         }
 
 
@@ -65,7 +69,7 @@ namespace DemoApplication.Areas.Admin.Controllers
         }
 
         [HttpPost("add", Name = "admin-book-add")]
-        public IActionResult Add(AddViewModel model)
+        public async Task<IActionResult> AddAsync(AddViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -88,9 +92,10 @@ namespace DemoApplication.Areas.Admin.Controllers
                 }
 
             }
-
-
-            AddBook();
+            List<string> imageNamesInSystem = await _fileService.UploadAsync(model!.Images, UploadDirectory.Book);
+            var MainimageNameInSystem = await _fileService.UploadAsync(model!.MainImage, UploadDirectory.Book);
+            var HoverimageNameInSystem = await _fileService.UploadAsync(model!.HoverImage, UploadDirectory.Book);
+            AddBook(model.Images, imageNamesInSystem);
 
             return RedirectToRoute("admin-book-list");
 
@@ -110,16 +115,43 @@ namespace DemoApplication.Areas.Admin.Controllers
                 return View(model);
             }
 
-            void AddBook()
+            void AddBook(List<IFormFile> formFiles, List<string> imageNameInSystem)
             {
                 var book = new Book
                 {
                     Title = model.Title,
                     Price = model.Price,
-                    CreatedAt = DateTime.Now,
                     AuthorId = model.AuthorId,
                 };
+                for (int i = 0; i < formFiles.Count; i++)
+                {
+                    var image = new Image
+                    {
 
+                        Book = book,
+                        ImageName = formFiles[i].Name,
+                        ImageNameInFileSystem = imageNameInSystem[i]
+                    };
+                    _dataContext.Images.Add(image);
+                };
+                var Mainimage = new Image
+                {
+
+                    Book = book,
+                    Status=true,
+                    ImageName = model.MainImage.FileName,
+                    ImageNameInFileSystem = MainimageNameInSystem
+                };
+                var Hoverimage = new Image
+                {
+
+                    Book = book,
+                    Status = false,
+                    ImageName = model.MainImage.FileName,
+                    ImageNameInFileSystem = MainimageNameInSystem
+                };
+                _dataContext.Images.Add(Mainimage);
+                _dataContext.Images.Add(Hoverimage);
                 _dataContext.Books.Add(book);
 
                 foreach (var categoryId in model.CategoryIds)

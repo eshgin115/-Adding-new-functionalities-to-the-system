@@ -136,31 +136,35 @@ ARTS & PHOTOGRAPHY BOOKS
                 {"breakpoint":320, "settings": {"slidesToShow": 1} }
             ]'>
 
-            @foreach (var book in Model.Books)
+            @*@foreach (var book in Model.Books)
             {
-                <div class="single-slide">
+               
+            }*@
+            @for (int i = 0; i < Model.Books.Count; i++)
+            {
+                 <div class="single-slide">
                     <div class="product-card">
                         <div class="product-header">
                             <a href="#" class="author">
-                                @book.Author
+                                @Model.Books[i].Author
                             </a>
                             <h3>
                                 <a href="product-details.html">
-                                    @book.Title
+                                   @Model.Books[i].Title
                                 </a>
                             </h3>
                         </div>
                         <div class="product-card--body">
                             <div class="card-image">
-                                <img src="~/client/assets/image/products/product-2.jpg" alt="">
+                                <img src="~/@Model.Books[i].ImageUrls[i]" alt="">
                                 <div class="hover-contents">
                                     <a href="product-details.html" class="hover-image">
-                                        <img src="~/client/assets/image/products/product-1.jpg" alt="">
+                                        <img src="~/@Model.Books[i].ImageUrls[i+1]" alt="">
                                     </a>
                                     <div class="hover-btns">
                                         <a  asp-route="client-basket-add" 
-                                            asp-route-id="@book.Id"
-                                           data-id="@book.Id"
+                                            asp-route-id="@Model.Books[i].Id"
+                                           data-id="@Model.Books[i].Id"
                                            class="add-product-to-basket-btn single-btn">
                                            Add
                                         </a>
@@ -178,7 +182,7 @@ ARTS & PHOTOGRAPHY BOOKS
                                 </div>
                             </div>
                             <div class="price-block">
-                                <span class="price">£@book.Price</span>
+                                <span class="price">£@Model.Books[i].Price</span>
                             </div>
                         </div>
                     </div>

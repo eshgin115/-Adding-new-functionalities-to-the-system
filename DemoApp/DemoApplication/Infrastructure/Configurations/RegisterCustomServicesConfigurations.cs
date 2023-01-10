@@ -15,6 +15,7 @@ namespace DemoApplication.Infrastructure.Configurations
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IsAuthenticated>();
             services.AddScoped<IsUserAdress>();
+            services.AddSingleton<IFileService, FileService>();
         }
     }
 }

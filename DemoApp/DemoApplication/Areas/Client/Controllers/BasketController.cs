@@ -34,6 +34,8 @@ namespace DemoApplication.Areas.Client.Controllers
             }
 
             var productsCookieViewModel = await _basketService.AddBasketProductAsync(product);
+
+
             if (productsCookieViewModel.Any())
             {
                 return ViewComponent(nameof(ShopCart), productsCookieViewModel);

@@ -25,7 +25,7 @@ namespace DemoApplication.Areas.Client.ViewComponents
             if (_userService.IsAuthenticated)
             {
                 var model = await _dataContext.BasketProducts
-                    .Where(bp => bp.Basket.UserId == _userService.CurrentUser.Id)
+                    .Where(bp => bp.Basket!.UserId == _userService.CurrentUser.Id)
                     .Select(bp =>
                         new ProductCookieViewModel(
                             bp.BookId,
